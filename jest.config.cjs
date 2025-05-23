@@ -7,18 +7,17 @@ const createJestConfig = nextJest({
 });
 
 // Add any custom config to be passed to Jest
-const customJestConfig = {
+module.exports = {
     testEnvironment: 'jest-environment-jsdom',
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     // Optional: Allow Jest to test .js files in the pages directory
-    testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js'],
+    testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
     // Optional: Setup resolver for Next.js
     moduleNameMapper: {
         // Handle module aliases (if you're using these in your Next.js project)
         '^@/components/(.*)$': '<rootDir>/components/$1',
         '^@/pages/(.*)$': '<rootDir>/pages/$1',
+        '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
     },
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config
-module.exports = createJestConfig(customJestConfig);
