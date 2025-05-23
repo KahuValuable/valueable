@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import CompanyFooter from "@/Components/CompanyFooter";
+import Navbar from "@/Components/HigherOrderComponents/Navbar";
+import HomeSection from "@/Components/HigherOrderComponents/HomeSection";
+import ContactSection from "@/Components/HigherOrderComponents/ContactSection";
+import ProductsSection from "@/Components/HigherOrderComponents/ProductsSection";
+import AboutSection from "@/Components/HigherOrderComponents/AboutSection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,19 +20,33 @@ const geistMono = Geist_Mono({
 export default function Home() {
   return (
     <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
+      className={`${geistSans.className} ${geistMono.className} font-[family-name:var(--font-geist-sans)]`}
+      style={{ scrollBehavior: "smooth" }}
     >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <br />
+      <div className="flex justify-center w-full fixed">
         <Image
-          className="dark:invert"
-          src="/ValuableLogoBlue.png"
-          alt="Logo"
-          width={400}
-          height={75}
-          priority
+          src="/orbs.png"
+          alt="Orbs"
+          width={50}
+          height={50}
+          objectFit="cover"
+          priority={true}
+          className="fixed top-5 left-5  object-cover dark:invert"
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
+          }}
         />
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+        <Navbar />
+      </div>
+      <HomeSection />
+      <AboutSection />
+      <ProductsSection />
+      <ContactSection />
+      <footer className="flex gap-[24px] flex-wrap items-center justify-center">
         <CompanyFooter />
       </footer>
     </div>
