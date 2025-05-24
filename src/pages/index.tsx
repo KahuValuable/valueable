@@ -24,24 +24,7 @@ export default function Home() {
       style={{ scrollBehavior: "smooth" }}
     >
       <br />
-      <div className="flex justify-center w-full fixed">
-        <Image
-          src="/orbs.png"
-          alt="Orbs"
-          width={50}
-          height={50}
-          objectFit="cover"
-          priority={true}
-          className="fixed top-5 left-5  object-cover dark:invert"
-          onClick={() => {
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            });
-          }}
-        />
-        <Navbar />
-      </div>
+      <Navbar />
       <HomeSection />
       <AboutSection />
       <ProductsSection />
