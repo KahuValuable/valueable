@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "@mui/material";
+import Image from "next/image";
 
 const Navbar = () => {
   const [show, setShow] = useState(true);
@@ -26,10 +27,12 @@ const Navbar = () => {
   return (
     <>
       <div className="hidden sm:block fixed top-8 left-8 z-50">
-        <img
-          src="/orbs.png"
+        <Image
+          src="/Orbs.png"
           alt="Orbs"
-          className="w-12 h-12 object-cover dark:invert cursor-pointer hover:scale-110 transition-transform duration-200"
+          width={48}
+          height={48}
+          className="object-cover dark:invert cursor-pointer hover:scale-110 transition-transform duration-200"
           onClick={() => {
             window.scrollTo({
               top: 0,
@@ -51,9 +54,11 @@ const Navbar = () => {
         style={{ maxWidth: "600px" }}
       >
         <div className="flex items-center justify-between sm:justify-start sm:gap-6">
-          <img
-            src="/orbs.png"
+          <Image
+            src="/Orbs.png"
             alt="Orbs"
+            width={32}
+            height={32}
             className="w-8 h-8 sm:w-10 sm:h-10 object-cover dark:invert cursor-pointer"
             onClick={() => {
               window.scrollTo({
