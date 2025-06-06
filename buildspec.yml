@@ -2,16 +2,25 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      nodejs: 18
     commands:
+      - echo Installing dependencies...
       - npm ci
   build:
     commands:
+      - echo Building the application...
       - npm run build
+  post_build:
+    commands:
+      - echo Build completed
 artifacts:
   files:
-    - "**/*" # Include all files
+    - "**/*"
   exclude-files:
-    - node_modules/** # Exclude unnecessary files
-    - .git/** # Exclude Git files
-    - .next/cache/** # Exclude Next.js cache
-  base-directory: . # Root directory for the artifact
+    - node_modules/**
+    - .git/**
+    - .next/cache/**
+    - README.md
+    - .env*
+  base-directory: .

@@ -22,7 +22,7 @@ const ProductsSection = () => {
   return (
     <section
       id="products"
-      className="min-h-screen flex flex-col items-center justify-center py-16 px-4 dark:invert"
+      className="min-h-screen flex flex-col items-center justify-center py-16 px-4"
     >
       <div className="max-w-xl w-full text-center mb-12">
         <h2 className="heading-text">PRODUCTS</h2>

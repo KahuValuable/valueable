@@ -35,13 +35,21 @@ body {
 
 }
 
+
+.oheading-text {
+  color: #F28C38; 
+  font-size:xx-large;
+  font-weight: 700;
+  text-align: center; 
+  font-family: "Public Sans";
+
+}
+
 .subheading-text {
   color: #F28C38; 
   font-size: large;
   font-weight: 600;
   font-family: "Public Sans";
-   
-
 }
 
 .body-text {
@@ -52,6 +60,21 @@ body {
   
 }
 
+.bold-body-text {
+  color: #003E5D; 
+  font-size: medium;
+  font-weight: 600;
+  font-family: "Public Sans"; 
+}
+
 .footer-color {
   background-color: #003E5D ;
+}
+
+
+.obody-text {
+  color: #F28C38; 
+  font-size: medium;
+  font-weight: 400;
+  font-family: "Public Sans";
 }

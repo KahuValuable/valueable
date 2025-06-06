@@ -60,7 +60,7 @@ const ContactSection = () => {
               type="text"
               name="name"
               placeholder="Your Name"
-              className="border p-2 rounded"
+              className="border p-2 rounded body-text"
               value={form.name}
               onChange={handleChange}
             />
@@ -71,7 +71,7 @@ const ContactSection = () => {
               type="email"
               name="email"
               placeholder="Your Email"
-              className="border p-2 rounded"
+              className="border p-2 rounded  body-text"
               value={form.email}
               onChange={handleChange}
             />
@@ -81,7 +81,7 @@ const ContactSection = () => {
             <textarea
               name="message"
               placeholder="Your Message"
-              className="border p-2 rounded h-32"
+              className="border p-2 rounded h-32  body-text"
               value={form.message}
               onChange={handleChange}
             ></textarea>

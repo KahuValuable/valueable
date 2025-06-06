@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import CompanyFooter from "@/Components/CompanyFooter";
+import CompanyFooter from "@/Components/BaseComponents/CompanyFooter";
 import Navbar from "@/Components/HigherOrderComponents/Navbar";
 import HomeSection from "@/Components/HigherOrderComponents/HomeSection";
 import ContactSection from "@/Components/HigherOrderComponents/ContactSection";
@@ -18,19 +18,19 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} font-[family-name:var(--font-geist-sans)]`}
-      style={{ scrollBehavior: "smooth" }}
-    >
-      <br />
+    <div className="bg-white">
       <Navbar />
-      <HomeSection />
-      <AboutSection />
-      <ProductsSection />
-      <ContactSection />
-      <footer className="flex gap-[24px] flex-wrap items-center justify-center">
+      <div
+        className={`${geistSans.className} ${geistMono.className} font-[family-name:var(--font-geist-sans)]`}
+        style={{ scrollBehavior: "smooth" }}
+      >
+        <br />
+        <HomeSection />
+        <AboutSection />
+        <ProductsSection />
+        <ContactSection />
         <CompanyFooter />
-      </footer>
+      </div>
     </div>
   );
 }
