@@ -1,45 +1,40 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# valueable — marketing site
 
-## Getting Started
+Landing page for **valueable** — social & environmental cost-benefit analysis.
+Built with Next.js (pages router), React 19, Tailwind CSS v4, and Public Sans + Fraunces.
 
-First, run the development server:
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build & run
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start        # or: npm run web  (serves on :8080)
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Structure
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```
+src/
+  config/links.ts                       # tool URLs (cba., rpmp.), demo, contact
+  pages/index.tsx                       # page composition + SEO
+  pages/_document.tsx                   # fonts + meta
+  styles/globals.css                    # design system (CSS variables, type, components)
+  Components/Reveal.tsx                 # scroll-reveal helper
+  Components/CompanyFooter.tsx
+  Components/HigherOrderComponents/     # Navbar, HomeSection, AboutSection,
+                                        # ProductsSection, HowItWorksSection, ContactSection
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The **Login** button in the navbar opens a dropdown routing to the two tools defined in
+`src/config/links.ts` (CBA Platform → cba.valueable.co.nz, RPMP Tool → rpmp.valueable.co.nz).
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
-=======
-# valueable
-Landing page for valueable
->>>>>>> 6c72f230c0f9f40c9261b78ac064d8ee21da7a30
+Deployed to AWS Elastic Beanstalk via CodeBuild (`buildspec.yml` → `npm ci` + `npm run build`);
+`Procfile` runs `npm start` on port 8080.
