@@ -1,57 +1,223 @@
 @import "tailwindcss";
-@import "@fontsource/public-sans";
+
+/* ============================================================================
+   valueable — design system
+   "Refined editorial naturalism": warm paper, deep teal-blue ink, ember accent,
+   Fraunces display + Public Sans body. Fonts are loaded in _document.tsx.
+   ========================================================================== */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --ink:        #003E5D;   /* deep teal-blue — primary */
+  --ink-deep:   #00293D;   /* darker, for footer / depth */
+  --ink-soft:   #2C6079;   /* muted blue for secondary text */
+  --ember:      #F28C38;   /* warm orange — accent */
+  --ember-deep: #D9711C;
+  --ember-soft: #FBE3CC;
+
+  /* Surfaces */
+  --paper:      #FBF8F2;   /* warm off-white page background */
+  --cloud:      #FFFFFF;   /* cards */
+  --mist:       #EAF1F4;   /* pale blue tint */
+  --mist-deep:  #DCE8ED;
+  --line:       #E3DACE;   /* warm hairline borders */
+
+  --foreground: var(--ink);
+  --background: var(--paper);
+
+  /* Type */
+  --font-display: "Newsreader", "Public Sans", Georgia, serif;
+  --font-sans: "Public Sans", system-ui, -apple-system, sans-serif;
+
+  /* Shadows — soft, layered, warm */
+  --shadow-sm: 0 1px 2px rgba(0, 42, 63, 0.06);
+  --shadow-md: 0 10px 30px -12px rgba(0, 42, 63, 0.22);
+  --shadow-lg: 0 30px 60px -20px rgba(0, 42, 63, 0.28);
+
+  --radius: 18px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-ink-deep: var(--ink-deep);
+  --color-ember: var(--ember);
+  --color-paper: var(--paper);
+  --color-cloud: var(--cloud);
+  --color-mist: var(--mist);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; color-scheme: light; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-.heading-text {
-  color: #003E5D; 
-  font-size:xx-large;
-  font-weight: 700;
-  text-align: center; 
-  font-family: "Public Sans";
-
+/* ── Atmospheric page background: layered dawn-light gradient mesh + grain ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(60% 50% at 12% 0%, rgba(242, 140, 56, 0.10), transparent 70%),
+    radial-gradient(55% 45% at 90% 8%, rgba(0, 62, 93, 0.10), transparent 70%),
+    radial-gradient(70% 60% at 50% 110%, rgba(0, 62, 93, 0.07), transparent 70%);
+}
+/* Fine grain overlay for tactile, premium texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.subheading-text {
-  color: #F28C38; 
-  font-size: large;
+/* ── Typography ───────────────────────────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+
+.display-xl {
+  font-family: var(--font-display);
   font-weight: 600;
-  font-family: "Public Sans";
-   
-
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: var(--ink);
 }
-
-.body-text {
-  color: #003E5D; 
-  font-size: medium;
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ember-deep);
+}
+.lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
   font-weight: 400;
-  font-family: "Public Sans"; 
-  
+}
+.body-text { color: var(--ink-soft); line-height: 1.65; }
+
+/* Legacy class names kept so any leftover markup still themes correctly */
+.heading-text { font-family: var(--font-display); color: var(--ink); font-weight: 600; }
+.subheading-text { color: var(--ember-deep); font-weight: 600; }
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-sans); font-weight: 600; font-size: 0.95rem;
+  padding: 0.72rem 1.4rem; border-radius: 999px;
+  cursor: pointer; border: 1px solid transparent;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+  text-decoration: none; white-space: nowrap;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--ember); color: #fff; box-shadow: 0 8px 22px -8px rgba(242,140,56,0.7); }
+.btn-primary:hover { background: var(--ember-deep); box-shadow: 0 12px 28px -8px rgba(242,140,56,0.8); }
+.btn-ink { background: var(--ink); color: #fff; }
+.btn-ink:hover { background: var(--ink-deep); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn-ghost:hover { border-color: var(--ink); background: rgba(0,62,93,0.04); }
+
+/* ── Cards ────────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--cloud);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+}
+.card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--mist-deep); }
+
+.hairline { border-top: 1px solid var(--line); }
+
+/* ── Scroll-reveal (paired with Reveal.tsx) ─────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* ── Hero load animation ────────────────────────────────────────────────────── */
+@keyframes floatUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.float-up { opacity: 0; animation: floatUp .9s cubic-bezier(.2,.7,.2,1) forwards; }
+
+@keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(2%, -3%) scale(1.05); } }
+
+/* ── Rotating audience words — vertical filmstrip (RotatingWords.tsx) ───────── */
+.roll-mask {
+  --roll-h: 1.5em;             /* row height; generous so italic descenders aren't clipped */
+  display: block;
+  height: var(--roll-h);
+  overflow: hidden;
+}
+.roll-track { display: flex; flex-direction: column; will-change: transform; }
+.roll-item {
+  height: var(--roll-h);
+  line-height: var(--roll-h);
+  display: block;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ember-deep);
+}
+@media (prefers-reduced-motion: reduce) {
+  /* Show a single static word rather than animating the column */
+  .roll-mask { height: var(--roll-h); }
+  .roll-track { transition: none !important; }
 }
 
-.footer-color {
-  background-color: #003E5D ;
+/* ── Document / whitepaper prose (guide page) ──────────────────────────────── */
+.doc { max-width: 50rem; }
+.doc h2 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2rem); color: var(--ink);
+  letter-spacing: -0.01em; line-height: 1.2;
+  margin: 2.6rem 0 0.7rem; padding-top: 1.2rem; border-top: 1px solid var(--line);
+}
+.doc h2:first-of-type { border-top: 0; padding-top: 0; margin-top: 1rem; }
+.doc h3 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 1.2rem; color: var(--ink); margin: 1.6rem 0 0.4rem;
+}
+.doc p { color: var(--ink-soft); line-height: 1.75; margin: 0.7rem 0; }
+.doc ul { margin: 0.6rem 0; padding-left: 1.2rem; }
+.doc li { color: var(--ink-soft); line-height: 1.7; margin: 0.3rem 0; list-style: disc; }
+.doc strong { color: var(--ink); font-weight: 600; }
+.doc code {
+  background: var(--mist); color: var(--ink);
+  padding: 0.12rem 0.4rem; border-radius: 5px; font-size: 0.86em;
+  font-family: ui-monospace, "Cascadia Code", Menlo, monospace;
+}
+.doc blockquote {
+  border-left: 3px solid var(--ember); background: var(--ember-soft);
+  padding: 0.8rem 1.1rem; border-radius: 0 10px 10px 0; margin: 1.1rem 0; color: var(--ink);
+}
+.doc table { width: 100%; border-collapse: collapse; margin: 1.1rem 0; font-size: 0.9rem; }
+.doc th, .doc td { border: 1px solid var(--line); padding: 0.55rem 0.7rem; text-align: left; vertical-align: top; }
+.doc th { background: var(--mist); color: var(--ink); font-weight: 700; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .float-up { transition: none; animation: none; opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
 }

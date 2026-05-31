@@ -1,50 +1,48 @@
 import React from "react";
+import Reveal from "@/Components/Reveal";
 
 const AboutSection = () => {
   return (
-    <section
-      id="about"
-      className="min-h-screen flex items-center justify-center py-16 px-4 dark:invert"
-    >
-      <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-10 flex flex-col items-center">
-        <h2 className="heading-text text-4xl mb-6">ABOUT</h2>
-        <p className="body-text text-lg mb-8 text-center">
-          Valueable was established in 2025 to help conservation-focused
-          organisations show the worth of their work. We’re a small team of
-          individuals passionate about the possibility of revolutionising how
-          value is valued.
-        </p>
-        <div className="w-full flex flex-col md:flex-row gap-8 mb-8">
-          <div className="flex-1 bg-blue-100 rounded-xl p-6 shadow">
-            <h3 className="subheading-text text-2xl mb-2 text-blue-900">
-              Our vision
-            </h3>
-            <p className="body-text text-base text-blue-900">
-              A world where the value of every transaction is transparent
-            </p>
-          </div>
-          <div className="flex-1 bg-orange-100 rounded-xl p-6 shadow">
-            <h3 className="subheading-text text-2xl mb-2 text-orange-900">
-              Our mission
-            </h3>
-            <p className="body-text text-base text-orange-900">
-              To provide tools that help people and organisations understand how
-              their decisions affect profit, people, and the planet
-            </p>
-          </div>
+    <section id="about" className="relative px-6 py-28">
+      <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-2">
+        {/* Left: narrative */}
+        <div>
+          <Reveal as="span" className="eyebrow">About valueable</Reveal>
+          <Reveal as="h2" className="display-lg mt-4" delay={60}>
+            Revolutionising how value is valued
+          </Reveal>
+          <Reveal as="p" className="lead mt-6" delay={120}>
+            valueable was established in 2025 to help conservation-focused and
+            community organisations show the worth of their work. We&apos;re a small
+            team united by one belief: the impact of good work should be as visible,
+            and as credible, as any financial return.
+          </Reveal>
+          <Reveal as="p" className="body-text mt-4" delay={180}>
+            We bring the rigour government uses — the NZ Treasury&apos;s CBAx evidence
+            base and the Living Standards Framework — to organisations of every size,
+            so the value you create is measured, not just described.
+          </Reveal>
         </div>
-        <div className="mt-4">
-          <p
-            className="body-text text-lg text-center font-semibold"
-            onClick={() =>
-              document
-                .getElementById("contact")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-          >
-            Contact us today to discuss how we can help you understand your
-            impact
-          </p>
+
+        {/* Right: vision / mission cards */}
+        <div className="grid gap-5">
+          <Reveal delay={120}>
+            <div className="card p-8">
+              <span className="text-sm font-bold uppercase tracking-widest text-[var(--ember-deep)]">Our vision</span>
+              <p className="mt-3 font-display text-2xl leading-snug text-[var(--ink)]">
+                A world where the value of every transaction is transparent.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={220}>
+            <div className="card p-8">
+              <span className="text-sm font-bold uppercase tracking-widest text-[var(--ember-deep)]">Our mission</span>
+              <p className="mt-3 text-lg leading-relaxed text-[var(--ink)]">
+                To provide tools that help people and organisations understand how their
+                decisions affect <strong>profit, people, and the planet</strong>.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,0 +1,173 @@
+import Head from "next/head";
+import Link from "next/link";
+import Navbar from "@/Components/HigherOrderComponents/Navbar";
+import CompanyFooter from "@/Components/CompanyFooter";
+
+export default function Guide() {
+  return (
+    <>
+      <Head>
+        <title>Methodology — valueable</title>
+        <meta
+          name="description"
+          content="How valueable monetises social and environmental value: the Theory of Change valuation chain, evidence base, additionality, uncertainty, and limitations."
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+
+      <Navbar />
+
+      <main className="px-6 pt-32 pb-20">
+        <article className="doc mx-auto">
+          {/* Header */}
+          <Link href="/" className="text-sm font-semibold text-[var(--ember-deep)] hover:underline">
+            ← Back to valueable
+          </Link>
+          <p className="eyebrow mt-6">Methodology white paper</p>
+          <h1 className="display-lg mt-3">
+            Monetising social &amp; environmental value
+          </h1>
+          <p className="lead mt-4">
+            How valueable turns what your organisation does into a defensible,
+            monetised cost-benefit analysis — and where its limits lie.
+          </p>
+          <p className="mt-3 text-sm text-[var(--ink-soft)]">Version 1.0 · {new Date().getFullYear()}</p>
+
+          <div className="mt-10">
+            <h2>1. Purpose &amp; scope</h2>
+            <p>
+              This paper documents how valueable converts the activities of an intervention into a
+              defensible, monetised estimate of the social, cultural, and environmental value it
+              creates. It is written for funders, commissioners, evaluators, and auditors who need to
+              understand <em>how</em> a benefit-cost ratio (BCR) or net present value (NPV) was
+              derived, what evidence underpins it, and where its limitations lie.
+            </p>
+            <p>
+              valueable produces a Social Return on Investment (SROI)-style cost-benefit analysis,
+              grounded in the New Zealand Treasury&apos;s <strong>CBAx</strong> approach and the{" "}
+              <strong>Living Standards Framework (LSF)</strong>, while remaining aligned with the
+              international SROI standard, the <strong>IRIS+</strong> metrics system, and the UN SDGs.
+            </p>
+
+            <h2>2. The Theory of Change</h2>
+            <p>Every analysis follows an explicit intervention-logic chain:</p>
+            <blockquote>
+              Inputs → Activities → Outputs → Outcomes → Impacts ($) → Social value
+            </blockquote>
+            <p>
+              Each logged activity is linked through an <strong>evidence coefficient</strong> to one
+              or more outcomes, and each outcome is linked through an <strong>impact valuation</strong>{" "}
+              to a dollar value.
+            </p>
+
+            <h2>3. The valuation chain</h2>
+            <p>For each activity in a project ledger, valueable computes:</p>
+            <blockquote>
+              outcome quantity = output × evidence coefficient × adjustment factor
+              <br />
+              benefit ($) = outcome quantity × impact value per unit
+            </blockquote>
+            <p>
+              Evidence coefficients express how much of an outcome is produced per unit of activity
+              (e.g. hectares protected per trap-night), each citing a published source. Impact
+              valuations convert one unit of outcome into NZD using market prices, fiscal proxies,
+              revealed preference, and willingness-to-pay estimates. Monetary accumulation uses
+              fixed-point decimal arithmetic to avoid floating-point drift.
+            </p>
+
+            <h2>4. Evidence base &amp; regional specificity</h2>
+            <p>
+              The default evidence base aligns to the NZ Treasury CBAx database and the twelve LSF
+              domains — Health, Safety, Income &amp; Wealth, Housing, Leisure, Civic, Cultural,
+              Subjective Wellbeing, Work &amp; Volunteering, Family, Environmental Amenity, and
+              Conservation. Where higher-resolution local evidence exists, regional overrides take
+              precedence; otherwise the national value applies.
+            </p>
+
+            <h2>5. Causal adjustment (additionality)</h2>
+            <p>
+              valueable counts only the value an intervention genuinely caused, applying the SROI
+              standard&apos;s reduction filters before valuation:
+            </p>
+            <table>
+              <thead>
+                <tr><th>Filter</th><th>The question it answers</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Attribution</strong></td><td>What share is due to this intervention rather than others?</td></tr>
+                <tr><td><strong>Deadweight</strong></td><td>What would have happened anyway (the counterfactual)?</td></tr>
+                <tr><td><strong>Displacement</strong></td><td>What share is offset by an equivalent loss elsewhere (&ldquo;leakage&rdquo;)?</td></tr>
+              </tbody>
+            </table>
+            <p>These combine into a single multiplier applied to every outcome quantity:</p>
+            <blockquote>
+              adjustment factor = (attribution) × (1 − deadweight) × (1 − displacement)
+            </blockquote>
+            <p>
+              Attribution and deadweight default to conservative values; displacement defaults to 0%
+              and is an Advanced-mode field, since most outcomes have no leakage. Counterfactual
+              reference values for attribution and deadweight are maintained in a dedicated library.
+            </p>
+
+            <h2>6. Uncertainty &amp; sensitivity</h2>
+            <p>
+              Every result is an estimate with a quantified range. Each impact carries a coefficient
+              of variation (CV) resolved by priority: per-impact override → valuation-method default
+              → global default. A Monte Carlo simulation (default 5,000 iterations) propagates
+              uncertainty to the BCR — coefficients and valuations sampled log-normally, bounded
+              percentages sampled from beta distributions. A one-at-a-time tornado analysis ranks the
+              assumptions that most influence the result.
+            </p>
+
+            <h2>7. Time treatment &amp; discounting</h2>
+            <p>
+              The core CBA is single-period — a conservative &ldquo;Year-1 impact&rdquo; that avoids
+              speculative projection. A discounted cash-flow forecast then projects benefits over a
+              chosen horizon (NZ Treasury default 6% real; lower rates common for long-lived
+              ecological benefits), with annuity, ramp-up, declining, or one-time accrual profiles.
+            </p>
+
+            <h2>8. Double-counting controls</h2>
+            <ul>
+              <li>Highest-coefficient resolution per outcome — the same outcome is never summed across targets.</li>
+              <li>A generic-beneficiary floor, so narrowing a target can never inflate value.</li>
+              <li>Unvalued outcomes are surfaced explicitly rather than guessed.</li>
+              <li>Activities with no matching evidence are flagged, not silently dropped.</li>
+            </ul>
+
+            <h2>9. Standards alignment</h2>
+            <p>
+              Every outcome is crosswalked to external frameworks so an analysis can be reported in a
+              stakeholder&apos;s own language: <strong>NZ LSF</strong>, <strong>IRIS+</strong>,{" "}
+              <strong>SROI</strong>, the <strong>UN SDGs</strong>, and{" "}
+              <strong>Te Whare Tapa Whā</strong>.
+            </p>
+
+            <h2>10. Limitations</h2>
+            <ul>
+              <li><strong>Single-period headline</strong> unless the multi-year forecast is used.</li>
+              <li><strong>Displacement is manual</strong> — evidence-backed defaults are planned.</li>
+              <li><strong>Drop-off</strong> currently uses a portfolio-level rate, not per-outcome evidence.</li>
+              <li><strong>Geographic basis</strong> — the default evidence base is New Zealand-specific.</li>
+              <li>Outputs support decision-making and funding narratives; they are not a substitute for an independent assured evaluation where one is required.</li>
+            </ul>
+          </div>
+
+          {/* CTA */}
+          <div className="mt-14 rounded-2xl border border-[var(--line)] bg-white p-8 text-center shadow-[var(--shadow-md)]">
+            <h3 className="font-display text-2xl font-semibold text-[var(--ink)]">See it in action</h3>
+            <p className="body-text mx-auto mt-2 max-w-xl">
+              Explore a sample conservation project calculated with real evidence values — no login required.
+            </p>
+            <a href="https://cba.valueable.co.nz/?demo=1" target="_blank" rel="noopener noreferrer"
+              className="btn btn-primary mt-5">
+              Try the live demo
+            </a>
+          </div>
+        </article>
+      </main>
+
+      <CompanyFooter />
+    </>
+  );
+}
